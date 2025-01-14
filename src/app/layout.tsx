@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import Providers from "./providers";
+import { Figtree } from "next/font/google";
+import { GeistMono } from "geist/font/mono";
 import "./globals.css";
+import { ThemeProvider } from "next-themes";
 
-const inter = Inter({ subsets: ["latin"] });
+const poly = Figtree({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,8 +18,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${poly.className} dark:bg-black bg-gray-100 text-black dark:text-white transition-colors duration-750`}>
+        <ThemeProvider enableSystem={true} attribute="class">
+          <Providers>{children}</Providers>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
